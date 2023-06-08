@@ -1,7 +1,7 @@
 import React from 'react';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import PropTypes from 'prop-types';
-import  '../ImageGallery/ImajeGallery.css';
+import  '../ImageGallery/ImageGallery.css';
 
 
 const ImageGallery = ({ items, onImageClick }) => {
@@ -19,7 +19,8 @@ const ImageGallery = ({ items, onImageClick }) => {
   };
 
 ImageGallery.propTypes = {
-  items: PropTypes.array.isRequired,
+  // items: PropTypes.array.isRequired,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
   onImageClick: PropTypes.func.isRequired,
 };
 

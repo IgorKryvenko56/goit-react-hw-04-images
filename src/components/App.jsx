@@ -45,7 +45,13 @@ export const App = () => {
       setImages(prevImages => [...prevImages, ...hits]);
       setPage(prevPage => prevPage + 1);
     } catch (error) {
-      setError('Error while fetching images.');
+      if (error.response) {
+        setError('Error while fetching images.');
+      } else if (error.request) {
+        setError('Network error. Please check your internet connection.');
+      } else {
+        setError('An unexpected error occurred. Please try again later.');
+      }  
     } finally {
       setLoading(false);
     }
