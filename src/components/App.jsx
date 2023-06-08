@@ -43,7 +43,7 @@ export const App = () => {
       setLoading(false);
     }
   };
-  
+
  useEffect(() => {
    fetchImages();
  }, []);
