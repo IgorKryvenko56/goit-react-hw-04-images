@@ -19,9 +19,11 @@ export const App = () => {
   const [page, setPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  
-const fetchImages = async() => {
-    const url = `https://pixabay.com/api/?q=${encodeURIComponent(searchQuery)}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`;
+
+  const fetchImages = async () => {
+    const url = `https://pixabay.com/api/?q=${encodeURIComponent(
+      searchQuery
+    )}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`;
 
     try {
       setLoading(true);
@@ -38,27 +40,29 @@ const fetchImages = async() => {
         setError('Network error. Please check your internet connection.');
       } else {
         setError('An unexpected error occurred. Please try again later.');
-      }  
+      }
     } finally {
       setLoading(false);
     }
   };
-useEffect(() => {
-  const fetchData = async () => {
-    await fetchImages();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchImages();
+    };
+
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleSearch = query => {
+    setSearchQuery(query);
+    setPage(1);
+    setImages([]);
+    setError(null);
+    fetchImages();
   };
-
-  fetchData();
-}, []);
- 
-
- const handleSearch = query => {
-   setSearchQuery(query);
-   setPage(1);
-   setImages([]);
-   setError(null);
-   fetchImages();
- };
 
   const handleOpenModal = selectedImage => {
     setShowModal(true);
@@ -71,14 +75,12 @@ useEffect(() => {
   };
 
   return (
-    <div className='App'>
+    <div className="App">
       <SearchBar onSearch={handleSearch} />
       {loading && <Loader />}
       {error && <p>{error}</p>}
       <ImageGallery items={images} onImageClick={handleOpenModal} />
-      {showModal && (
-        <Modal image={selectedImage} onClose={handleCloseModal} />
-      )}
+      {showModal && <Modal image={selectedImage} onClose={handleCloseModal} />}
       {images.length > 0 && !loading && (
         <Button onClick={fetchImages}>Load More</Button>
       )}
