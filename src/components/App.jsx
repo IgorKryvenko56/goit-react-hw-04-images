@@ -20,11 +20,7 @@ export const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   
-  useEffect(() => {
-    fetchImages();
-  }, []);
-
- const fetchImages = async() => {
+const fetchImages = async() => {
     const url = `https://pixabay.com/api/?q=${encodeURIComponent(searchQuery)}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`;
 
     try {
@@ -47,7 +43,13 @@ export const App = () => {
       setLoading(false);
     }
   };
+useEffect(() => {
+  const fetchData = async () => {
+    await fetchImages();
+  };
 
+  fetchData();
+}, []);
  
 
  const handleSearch = query => {
@@ -55,7 +57,7 @@ export const App = () => {
    setPage(1);
    setImages([]);
    setError(null);
-  //  fetchImages();
+   fetchImages();
  };
 
   const handleOpenModal = selectedImage => {

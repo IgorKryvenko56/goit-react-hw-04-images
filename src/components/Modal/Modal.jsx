@@ -57,14 +57,6 @@ import './Modal.css';
 const modalRoot = document.querySelector('#modal-root');
 
 const Modal = ({ image, onClose }) => {
-  const handleKeyDown = useCallback(
-    event => {
-      if (event.code === 'Escape') {
-        onClose();
-      }
-    },
-    [onClose]
-  );
 
   const handleOverlayClick = useCallback(
     event => {
