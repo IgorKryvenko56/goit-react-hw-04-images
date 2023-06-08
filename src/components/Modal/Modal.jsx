@@ -19,17 +19,17 @@ const Modal = ({ image, onClose }) => {
   };
 
   useEffect(() => {
-    const handleKeyDown = event => {
-      if (event.code === 'Escape') {
-        onClose();
-      }
-    };
+    // const handleKeyDown = event => {
+    //   if (event.code === 'Escape') {
+    //     onClose();
+    //   }
+    // };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onClose]);
+  }, [handleKeyDown]);
  
   return createPortal(
     <div className="overlay" onClick={handleOverlayClick}>
