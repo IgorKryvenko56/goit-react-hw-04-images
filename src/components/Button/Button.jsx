@@ -3,8 +3,13 @@ import PropTypes from 'prop-types';
 import './Button.css';
 
 const Button = ({ onClick }) => {
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
+  };
   return (
-    <button className="load-more-button" onClick={onClick}>
+    <button className="load-more-button" onClick={handleClick}>
       Load More
     </button>
   );

@@ -21,6 +21,9 @@ export const App = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const fetchImages = async () => {
+    if (searchQuery === '') {
+      return; // Return early if searchQuery is empty
+    }
     const url = `https://pixabay.com/api/?q=${encodeURIComponent(
       searchQuery
     )}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`;
@@ -45,16 +48,6 @@ export const App = () => {
       setLoading(false);
     }
   };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await fetchImages();
-    };
-
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleSearch = query => {
     setSearchQuery(query);
@@ -63,8 +56,8 @@ export const App = () => {
     setError(null);
     fetchImages();
   };
-
-  const handleOpenModal = selectedImage => {
+  
+const handleOpenModal = selectedImage => {
     setShowModal(true);
     setSelectedImage(selectedImage);
   };
@@ -81,7 +74,7 @@ export const App = () => {
       {error && <p>{error}</p>}
       <ImageGallery items={images} onImageClick={handleOpenModal} />
       {showModal && <Modal image={selectedImage} onClose={handleCloseModal} />}
-      {images.length > 0 && !loading && (
+      {!loading && images.length > 0 && (
         <Button onClick={fetchImages}>Load More</Button>
       )}
     </div>
