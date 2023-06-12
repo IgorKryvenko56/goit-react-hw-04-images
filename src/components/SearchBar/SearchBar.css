@@ -68,8 +68,7 @@
   } 
 .search-icon {
   position: relative; 
-  top: 35%;
-  left: 0.3rem; 
+  top: 50%;
   transform: translateY(-50%);
   background-image: url('../icons8-search.svg');
   background-size: contain;
