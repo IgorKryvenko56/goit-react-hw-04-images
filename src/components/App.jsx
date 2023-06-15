@@ -64,6 +64,8 @@ export const App = () => {
 
   const handleSearch = query => {
     setSearchQuery(query);
+    setPage(1); // reset to 1 page
+    setImages([]); // clear the images from previous query
   };
 
   const handleLoadMore = () => {
